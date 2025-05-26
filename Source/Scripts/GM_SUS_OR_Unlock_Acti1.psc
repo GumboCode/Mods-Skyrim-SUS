@@ -1,5 +1,5 @@
 Scriptname GM_SUS_OR_Unlock_Acti1 extends ObjectReference  
-{Creates a temporary activator that moves a marker to its location, then the GM_SUS_Unlock_Qust1 uses that marker to find a locked object.}
+{This script moves a marker to its own location, then the GM_SUS_Unlock_Qust1 uses that marker to find a locked object.}
 
 ; =============================================================
 ; VARIABLES
@@ -7,15 +7,24 @@ Scriptname GM_SUS_OR_Unlock_Acti1 extends ObjectReference
 
 ; Properties -----------------------------------------------------
 
+Actor                   Property        _PLAYERREF          Auto
+{Set this to the player reference.}
+
+EffectShader            Property        _EFFECT1            Auto
+{This effect applies to the locked object when it is unlocked.}
+
 ObjectReference         Property        _OBJREF1            Auto
+{The marker object reference placed in the game world, and used by the Marker alias.}
 
 ReferenceAlias          Property        _REFALIAS1          Auto
-{The alias that the script measures distance from.}
-
-ReferenceAlias          Property        _REFALIAS2          Auto
+{The LockedTarget alias that the quest uses to select the nearest locked object.}
 
 Quest                   Property        _QUEST1             Auto
-{The quest that uses an alias ref to find a nearby locked object.}
+{The GM_SUS_Unlock_Qust1 quest is used to fill the aliases.}
+
+; Private -----------------------------------------------------
+
+ObjectReference         _locked_or
 
 ; =============================================================
 ; EVENTS
@@ -23,9 +32,22 @@ Quest                   Property        _QUEST1             Auto
 
 Event OnInit()
 
+    _QUEST1.Stop()
     GotoState("Created")
 
 EndEvent
+
+; =============================================================
+; FUNCTIONS
+; =============================================================
+
+Function CleanUp()
+
+    _QUEST1.Stop()
+    Self.Delete()
+    Debug.Trace("finished!")
+
+EndFunction
 
 ; =============================================================
 ; STATES
@@ -33,16 +55,19 @@ EndEvent
 
 State Created
 
-; Events -----------------------------------------------------
-
     Event OnBeginState()
 
         _OBJREF1.MoveTo(Self)
         _QUEST1.Start()
-        Debug.Trace("Marker = " + _REFALIAS1.GetReference())
-        Debug.Trace("LockedTarget = " + _REFALIAS2.GetReference())
+        _locked_or = _REFALIAS1.GetReference()
+            If (!_locked_or)
+                CleanUp()
+                return
+            EndIf
+        Debug.Trace("LockedTarget = " + _locked_or)
 
-        Utility.Wait(5)
+        _locked_or.Lock(false)
+        _EFFECT1.Play(_locked_or, 2.0)
 
         GotoState("")
 
@@ -52,9 +77,7 @@ State Created
 
     Event OnEndState()
 
-        _QUEST1.Stop()
-
-        Self.Delete()
+        CleanUp()
 
     EndEvent
 
