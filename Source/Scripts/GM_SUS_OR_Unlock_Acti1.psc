@@ -1,5 +1,5 @@
 Scriptname GM_SUS_OR_Unlock_Acti1 extends ObjectReference
-{This is used by the GM_SUS_Unlock_Acti1 base. It moves the GM_SUS_Unlock_Acti1Ref1 so the GM_SUS_Unlock_Qust1 to scan near it for locked objects.}
+{This is used by the GM_SUS_Unlock_Acti1. It moves the GM_SUS_Unlock_Acti1Ref1 to itself when it is created, then deletes itself for cleanup.}
 
 ; =============================================================
 ; VARIABLES
@@ -15,6 +15,7 @@ ObjectReference             Property        _OBJREF1            Auto
 ; =============================================================
 
 Event OnInit()
+
 
     Self.Delete()
     _OBJREF1.MoveTo(Self)

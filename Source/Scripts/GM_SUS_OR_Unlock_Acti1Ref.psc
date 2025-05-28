@@ -1,5 +1,5 @@
 Scriptname GM_SUS_OR_Unlock_Acti1Ref extends ObjectReference  
-{This is used on the GM_SUS_Unlock_Acti1 reference, which is assigned to the Marker alias in the GM_SUS_Unlock_Qust1. It unlocks the object chosen by the LockedTarget alias.}
+{This is used on the GM_SUS_Unlock_Acti1Ref1. It uses the GM_SUS_Unlock_Qust1 to find the nearest locked object.}
 
 ; =============================================================
 ; VARIABLES
@@ -11,13 +11,13 @@ Actor                   Property        _PLAYERREF          Auto
 {Set this to the player reference.}
 
 EffectShader            Property        _EFFECT1            Auto
-{This effect applies to the locked object when it is unlocked.}
+{This effect applies to the locked object when the script unlocks it.}
 
 Perk[]                  Property        _PERK_ARRAY         Auto
-{Check if the player has an alteration cost reduction perk.}
+{Check if the player has the alteration cost reduction perk.}
 
 Quest                   Property        _QUEST1             Auto
-{The GM_SUS_Unlock_Qust1 quest is used to fill the aliases.}
+{The GM_SUS_Unlock_Qust1 is used to fill the aliases.}
 
 ReferenceAlias          Property        _REFALIAS1          Auto
 {The LockedTarget alias that the quest uses to select the nearest locked object.}
@@ -37,7 +37,11 @@ ObjectReference         _locked_or
 
 Event OnActivate(ObjectReference a_activator)
     
-    GotoState("Moved")
+    If (!GetState()) ;make sure it isn’t already running to prevent a ctd from a double spell cast
+
+        GotoState("Moved")
+
+    EndIf
 
 EndEvent
 
@@ -45,29 +49,29 @@ EndEvent
 ; FUNCTIONS
 ; =============================================================
 
-Function UnlockTarget(float a_mag = 0.0, float a_bool = 0.0, float a_skill = 0.0)
+Function UnlockTarget(bool a_bool = false, float a_mag = 0.0, float a_skill = 0.0) ;performs the unlock procedure on the LockedTarget object
     
-    float _mod_f = _PLAYERREF.GetActorValue("AlterationMod")
+    float _skill_f  = _PLAYERREF.GetActorValue("Alteration")
+    float _mod_f    = _PLAYERREF.GetActorValue("AlterationMod")
 
-    If (_mod_f < 100)
+    If (_mod_f < 100) ;if the player has an alteration magicka cost reduction modifier that is at 100% or greater, set the magicka cost to 0
         
-        Debug.Trace("alteration mod = " + _mod_f)
-        a_mag -= (_mod_f * 0.01) * a_mag
+        a_mag *= ( 1 - ( _mod_f * 0.01 ) ) * ( 1 - Math.Pow( ( _skill_f  / 400 ), 0.65 ) ) ;performs a similar magicka cost calculation to the base game since the spell doesn’t have a cost associated with it
 
-    ElseIf (_mod_f > 99)
+        If (a_bool) ;halves the magicka cost if the player has the corresponding alteration perk
+        
+            Debug.Trace("player has reduction perk!")
+            a_mag *= 0.5
+
+        EndIf
+
+    Else
         
         a_mag = 0
 
     EndIf
 
-    If (a_bool)
-        
-        Debug.Trace("player has reduction perk!" )
-        a_mag *= 0.5
-
-    EndIf
-
-    If (a_mag > _PLAYERREF.GetActorValue("Magicka"))
+    If (a_mag > _PLAYERREF.GetActorValue("Magicka")) ;ensures the player has enough magicka to unlock the object
 
         _SOUND2.Play(_PLAYERREF)
         Debug.Notification("You need at least " + a_mag as int + " magicka to alter this lock.")
@@ -85,27 +89,27 @@ Function UnlockTarget(float a_mag = 0.0, float a_bool = 0.0, float a_skill = 0.0
     
 EndFunction
 
-Function CheckLockLvl(int a_value)
+Function CheckLockLvl(int a_value) ;checks the lock level of the object and executes the UnlockTarget function with the appropriate parameters
     
     If (a_value < 2)            ;Novice
         
-        UnlockTarget(80 , _PLAYERREF.HasPerk(_PERK_ARRAY[0]) as float , 50)
+        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[0]) , 80 , 20)
     
     ElseIf (a_value < 26)       ;Apprentice
         
-        UnlockTarget(160 , _PLAYERREF.HasPerk(_PERK_ARRAY[1]) as float , 100)
+        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[1]) , 160 , 40)
 
     ElseIf (a_value < 51)       ;Adept
         
-        UnlockTarget(240 , _PLAYERREF.HasPerk(_PERK_ARRAY[2]) as float , 150)
+        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[2]) , 240 , 60)
 
     ElseIf (a_value < 76)       ;Expert
         
-        UnlockTarget(320 , _PLAYERREF.HasPerk(_PERK_ARRAY[3]) as float , 200)
+        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[3]) , 320 , 80)
 
     ElseIf (a_value < 255)      ;Master
         
-        UnlockTarget(400 , _PLAYERREF.HasPerk(_PERK_ARRAY[4]) as float , 250)
+        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[4]) , 400 , 100)
 
     Else                        ;Key
         
@@ -120,15 +124,15 @@ EndFunction
 ; =============================================================
 
 State Moved
+    ;go to this state when activated to start altering a lock
 
     Event OnBeginState()
 
         _QUEST1.Start()
         _locked_or = _REFALIAS1.GetReference()
 
-        If (!_locked_or)
+        If (!_locked_or) ;stop the script if the quest doesn’t fill the LockedTarget alias
 
-            _QUEST1.Stop()
             GotoState("")
             return
 
@@ -136,8 +140,6 @@ State Moved
 
         Debug.Trace("LockedTarget = " + _locked_or)
         CheckLockLvl(_locked_or.GetLockLevel())
-
-        _QUEST1.Stop()
         GotoState("")
 
     EndEvent
@@ -147,6 +149,7 @@ State Moved
     Event OnEndState()
 
         Debug.Trace("finished!")
+        _QUEST1.Stop()
 
     EndEvent
 
