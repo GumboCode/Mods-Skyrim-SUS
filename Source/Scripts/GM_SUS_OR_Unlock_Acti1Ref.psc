@@ -56,12 +56,12 @@ Function UnlockTarget(bool a_bool = false, float a_mag = 0.0, float a_skill = 0.
 
     If (_mod_f < 100) ;if the player has an alteration magicka cost reduction modifier that is at 100% or greater, set the magicka cost to 0
         
-        a_mag *= ( 1 - ( _mod_f * 0.01 ) ) * ( 1 - Math.Pow( ( _skill_f  / 400 ), 0.65 ) ) ;performs a similar magicka cost calculation to the base game since the spell doesn’t have a cost associated with it
+        a_mag *= ( 1 - ( _mod_f / 100 ) ) * ( 1 - Math.Pow( ( _skill_f / 400 ), 0.65 ) ) ;performs a similar magicka cost calculation to the base game since the spell doesn’t have a cost associated with it
 
         If (a_bool) ;halves the magicka cost if the player has the corresponding alteration perk
         
             Debug.Trace("player has reduction perk!")
-            a_mag *= 0.5
+            a_mag /= 2
 
         EndIf
 
@@ -124,7 +124,7 @@ EndFunction
 ; =============================================================
 
 State Moved
-    ;go to this state when activated to start altering a lock
+    ;go to this state when activated to start opening a lock
 
     Event OnBeginState()
 
