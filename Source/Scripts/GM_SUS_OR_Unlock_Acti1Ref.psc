@@ -49,46 +49,6 @@ EndEvent
 ; FUNCTIONS
 ; =============================================================
 
-Function UnlockTarget(bool a_bool = false, float a_mag = 0.0, float a_skill = 0.0) ;performs the unlock procedure on the LockedTarget object
-    
-    float _skill_f  = _PLAYERREF.GetActorValue("Alteration")
-    float _mod_f    = _PLAYERREF.GetActorValue("AlterationMod")
-
-    If (_mod_f < 100) ;if the player has an alteration magicka cost reduction modifier that is at 100% or greater, set the magicka cost to 0
-        
-        a_mag *= ( 1 - ( _mod_f / 100 ) ) * ( 1 - Math.Pow( ( _skill_f / 400 ), 0.65 ) ) ;performs a similar magicka cost calculation to the base game since the spell doesn’t have a cost associated with it
-
-        If (a_bool) ;halves the magicka cost if the player has the corresponding alteration perk
-        
-            Debug.Trace("player has reduction perk!")
-            a_mag /= 2
-
-        EndIf
-
-    Else
-        
-        a_mag = 0
-
-    EndIf
-
-    If (a_mag > _PLAYERREF.GetActorValue("Magicka")) ;ensures the player has enough magicka to unlock the object
-
-        _SOUND2.Play(_PLAYERREF)
-        Debug.Notification("You need at least " + a_mag as int + " magicka to alter this lock.")
-    
-    Else
-        
-        Debug.Trace("magicka cost = " + a_mag)
-        _PLAYERREF.DamageActorValue("Magicka", a_mag)
-        _locked_or.Lock(false)
-        _SOUND1.Play(_locked_or)
-        _EFFECT1.Play(_locked_or, 1.0)
-        Game.AdvanceSkill("Alteration", a_skill)
-            
-    EndIf
-    
-EndFunction
-
 Function CheckLockLvl(int a_value) ;checks the lock level of the object and executes the UnlockTarget function with the appropriate parameters
     
     If (a_value < 2)            ;Novice
@@ -119,6 +79,48 @@ Function CheckLockLvl(int a_value) ;checks the lock level of the object and exec
 
 EndFunction
 
+
+
+Function UnlockTarget(bool a_bool = false, float a_mag = 0.0, float a_skill = 0.0) ;performs the unlock procedure on the LockedTarget object
+    
+    float _skill_f  = _PLAYERREF.GetActorValue("Alteration")
+    float _mod_f    = _PLAYERREF.GetActorValue("AlterationMod")
+
+    If (_mod_f < 100) ;if the player has an alteration magicka cost reduction modifier that is at 100% or greater, set the magicka cost to 0
+        
+        a_mag *= ( 1 - ( _mod_f / 100 ) ) * ( 1 - Math.Pow( ( _skill_f / 400 ), 0.65 ) ) ;performs a similar magicka cost calculation to the base game since the spell doesn’t have a cost associated with it
+
+        If (a_bool) ;halves the magicka cost if the player has the corresponding alteration perk
+        
+            ;Debug.Trace("player has reduction perk!")
+            a_mag /= 2
+
+        EndIf
+
+    Else
+        
+        a_mag = 0
+
+    EndIf
+
+    If (a_mag > _PLAYERREF.GetActorValue("Magicka")) ;ensures the player has enough magicka to unlock the object
+
+        _SOUND2.Play(_PLAYERREF)
+        Debug.Notification("You need at least " + a_mag as int + " magicka to alter this lock.")
+    
+    Else
+        
+        ;Debug.Trace("magicka cost = " + a_mag)
+        _PLAYERREF.DamageActorValue("Magicka", a_mag)
+        _locked_or.Lock(false)
+        _SOUND1.Play(_locked_or)
+        _EFFECT1.Play(_locked_or, 1.0)
+        Game.AdvanceSkill("Alteration", a_skill)
+            
+    EndIf
+    
+EndFunction
+
 ; =============================================================
 ; STATES
 ; =============================================================
@@ -138,7 +140,7 @@ State Moved
 
         EndIf
 
-        Debug.Trace("LockedTarget = " + _locked_or)
+        ;Debug.Trace("LockedTarget = " + _locked_or)
         CheckLockLvl(_locked_or.GetLockLevel())
         GotoState("")
 
@@ -148,7 +150,7 @@ State Moved
 
     Event OnEndState()
 
-        Debug.Trace("finished!")
+        ;Debug.Trace("finished!")
         _QUEST1.Stop()
 
     EndEvent
