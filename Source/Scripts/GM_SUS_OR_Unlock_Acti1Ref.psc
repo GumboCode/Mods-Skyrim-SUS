@@ -116,7 +116,7 @@ Function UnlockTarget(bool a_bool = false, float a_mag = 0.0, float a_skill = 0.
         _SOUND1.Play(_locked_or)
         _EFFECT1.Play(_locked_or, 1.0)
         Game.AdvanceSkill("Alteration", a_skill)
-            
+        
     EndIf
     
 EndFunction

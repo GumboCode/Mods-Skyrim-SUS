@@ -10,23 +10,21 @@ This mod has no dependencies.
 
 This mod adds a spell to the game that lets you unlock doors and chests from a distance, as long as it doesn’t require a key. It's extremely light weight, only runs scripts each time it's cast, and uninstalling it is easy. It’s very close to Oblivion’s unlock spells, but with some additional quality of life features. Just like in Oblivion, using it in front of guards won't get you into trouble. The spell was designed with game balance in mind, while not perfect, it tries to avoid being immersion breaking.
 
-There is only one Unlock spell to learn, and it doesn’t matter what your alteration skill is, you can always bruteforce any lock with enough magicka. The better you are at alteration, the less magicka it will take to unlock things. Practice with the spell, and you will be awarded XP in the alteration school for it, tougher locks yield higher XP. If you get the perks that cut your alteration magicka costs by half, it will apply to locks matching that level. If you are crafty enough, you can use enchantments to bring down your alteration spell cost and use potions to increase your magicka.
+You can obtain the spell by buying it from Belethor's General Goods, Bits and Pieces, Gray Pine Goods, Riverwood Trader, and The Pawned Prawn.
+
+There is only one Unlock spell to learn, and it doesn’t matter what your alteration skill is, you can always bruteforce any lock open with enough magicka. The better you are at alteration, the less magicka it will take to unlock things. Practice with the spell, and you will be awarded XP in the alteration school for it, tougher locks yield higher XP. If you get the perks that cut your alteration spell costs by half, it will apply to locks matching that level. Perhaps you consider yourself crafty, in that case, you can use enchantments to bring down your alteration spell cost and use potions to increase your magicka. The point here is that the spell still works similarly to a vanilla one, while being packed into one spell.
 
 ## Features
 
-- Cast a spell to access a menu that lets you select an initial value to increase your weight by, 100, 1K, 10K, 100K, 1M.
-<img src="" width="600">
-
-- After you select a base amount, then you select by how much to multiply the amount up to 10 times.
-<img src="" width="600">
-
-- Selecting the disable option will completely remove the effect from the player for easy clean up.
+- Cast a spell that will open any lock that doesn’t require a key.
+- It will work at any skill level, provided you have enough magicka.
+- Shhh - No one will notice, not even the guards.
+- You can use the game mechanics to reduce the cost of opening locks.
 
 <ins>Current limitations:</ins>
 
-- This mod is not able to reduce your carry weight below its normal value, though I can certainly look into that in the future if anyone expresses interest.
-- You can only set your own carry weight, it doesn’t affect your companions.
-- You cannot set your carry weight to be any higher than 10M because it will start to negatively impact anything else giving you carry weight bonuses. I.g. It can give your Extra Pockets perk permanent reductions.
+- You cannot open locks that require a key because it can break things, especially quests.
+- Some doors may be a little awkward to unlock, especially the jail doors in Riften. The trick is to hit them in different corners, one of them is bound to work.
 
 ## Installation
 
@@ -41,15 +39,14 @@ The Skyrim Special Edition folder location depends on what platform you installe
 
 1. Boot up the game.
 2. You may need to go to Creations and Load Order to enable the mod.
-3. While in the game, locate one of the 3 spell tomes placed in the game world and learn the Add Carry Weight spell.
-4. When you cast the spell, the menu should appear. If it doesn't, try saving, closing the game, and loading back in.
+3. While in the game, buy the spell tome from one of 5 merchants, and learn the Unlock spell.
+4. Create a save after purchasing the spell, do not cast it before you save.
+5. Cast the spell on something that is locked.
+6. You should see the object glow, or a notification appear at the top of the screen. If not, close the game and load back into the save you made before casting the spell.
 
 <ins>To uninstall:</ins>
 
-1. Load up the game, cast the spell, and select the disable option. This is important to make sure the effect is removed from the player.
-2. Save the game.
-3. Close the game.
-4. Remove the files you had previously installed.
+Remove the files you had previously installed.
 
 ## Notes
 

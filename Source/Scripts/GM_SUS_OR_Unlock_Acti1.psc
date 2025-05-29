@@ -16,7 +16,6 @@ ObjectReference             Property        _OBJREF1            Auto
 
 Event OnInit()
 
-
     Self.Delete()
     _OBJREF1.MoveTo(Self)
     _OBJREF1.Activate(Self) ;use this to activate the GM_SUS_Unlock_Acti1Ref1 which starts the script
