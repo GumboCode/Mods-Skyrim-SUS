@@ -13,6 +13,12 @@ Actor                   Property        _PLAYERREF          Auto
 EffectShader            Property        _EFFECT1            Auto
 {This effect applies to the locked object when the script unlocks it.}
 
+GlobalVariable          Property        _MAGICKAMAX         Auto
+{The global that sets the maximum base cost of the spell.}
+
+GlobalVariable          Property        _SKILLMAX           Auto
+{The global that sets the maximum skill increase of the spell.}
+
 Perk[]                  Property        _PERK_ARRAY         Auto
 {Check if the player has the alteration cost reduction perk.}
 
@@ -51,25 +57,28 @@ EndEvent
 
 Function CheckLockLvl(int a_value) ;checks the lock level of the object and executes the UnlockTarget function with the appropriate parameters
     
+    int _mag_i =    ( _MAGICKAMAX.GetValue() as int / 5 )
+    int _skill_i =  ( _SKILLMAX.GetValue() as int / 5 )
+
     If (a_value < 2)            ;Novice
         
-        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[0]) , 80 , 20)
+        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[0]) , _mag_i , _skill_i)
     
     ElseIf (a_value < 26)       ;Apprentice
         
-        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[1]) , 160 , 40)
+        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[1]) , ( _mag_i * 2 ) , ( _skill_i * 2 ))
 
     ElseIf (a_value < 51)       ;Adept
         
-        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[2]) , 240 , 60)
+        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[2]) , ( _mag_i * 3 ) , ( _skill_i * 3 ))
 
     ElseIf (a_value < 76)       ;Expert
         
-        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[3]) , 320 , 80)
+        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[3]) , ( _mag_i * 4 ) , ( _skill_i * 4 ))
 
     ElseIf (a_value < 255)      ;Master
         
-        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[4]) , 400 , 100)
+        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[4]) , ( _mag_i * 5 ) , ( _skill_i * 5 ))
 
     Else                        ;Key
         
@@ -83,8 +92,8 @@ EndFunction
 
 Function UnlockTarget(bool a_bool = false, float a_mag = 0.0, float a_skill = 0.0) ;performs the unlock procedure on the LockedTarget object
     
-    float _skill_f  = _PLAYERREF.GetActorValue("Alteration")
-    float _mod_f    = _PLAYERREF.GetActorValue("AlterationMod")
+    float _mod_f =      _PLAYERREF.GetActorValue("AlterationMod")
+    float _skill_f =    _PLAYERREF.GetActorValue("Alteration")
 
     If (_mod_f < 100) ;if the player has an alteration magicka cost reduction modifier that is at 100% or greater, set the magicka cost to 0
         
