@@ -1,4 +1,4 @@
-# Simple Unlock Spell
+# Simple Unlock Spell 🧙‍♂️
 
 [![VIDEO PREVIEW](https://staticdelivery.nexusmods.com/mods/1704/images/151386/151386-1748586076-1610554653.jpeg)](https://www.youtube.com/watch?v=IRGuQIPcQyA)
 
@@ -6,7 +6,7 @@ Mod Page: https://www.nexusmods.com/skyrimspecialedition/mods/151386
 
 This mod has no dependencies.
 
-## About
+## About 📖
 
 This mod adds a spell to the game that lets you unlock doors and chests from a distance, as long as it doesn’t require a key. It's extremely light weight, only runs scripts each time it's cast, and uninstalling it is easy. It’s very close to Oblivion’s unlock spells, but with some additional quality of life features. Just like in Oblivion, using it in front of guards won't get you into trouble. The spell was designed with game balance in mind, if you don’t like my default settings, I have given you 3 global variables so you can tweak it to your satisfaction.
 
@@ -14,7 +14,7 @@ You can obtain the spell by buying it from Belethor's General Goods, Bits and Pi
 
 There is only one Unlock spell to learn, and it doesn’t matter what your alteration skill is, you can always bruteforce any lock open with enough magicka. The better you are at alteration, the less magicka it will take to unlock things. Practice with the spell, and you will be awarded XP in the alteration school for it, tougher locks yield higher XP. If you get the perks that cut your alteration spell costs by half, it will apply to locks matching that level. Perhaps you consider yourself crafty, in that case, you can use enchantments to bring down your alteration spell cost and use potions to increase your magicka. The point here is that the spell still works similarly to a vanilla one, while being packed into one spell.
 
-## Features
+## Features ⚙
 
 - Cast a spell that will open any lock that doesn’t require a key.
 <img src="https://staticdelivery.nexusmods.com/mods/1704/images/151386/151386-1748586095-2140083066.jpeg" width="600">
@@ -26,6 +26,7 @@ There is only one Unlock spell to learn, and it doesn’t matter what your alter
 - You won’t get in trouble for unlocking things with the spell.
 - You can use the game mechanics to reduce the cost of opening locks.
 - Configure the spell through 3 different global variables.
+<img src="https://staticdelivery.nexusmods.com/mods/1704/images/151386/151386-1748715655-855762942.jpeg" width="600">
 
 <ins>Details:</ins>
 
@@ -51,7 +52,7 @@ Some doors may be a little awkward to unlock, especially the jail doors in Rifte
 
 - You cannot open locks that require a key because it can break things, especially quests.
 
-## Installation
+## Installation 🛠
 
 <ins>Manually install the files:</ins>
 
@@ -73,7 +74,7 @@ The Skyrim Special Edition folder location depends on what platform you installe
 
 - Remove the files you had previously installed.
 
-## Notes
+## Notes 🗒
 
 Feel free to post any questions about the mod here: https://www.nexusmods.com/skyrimspecialedition/mods/151386?tab=posts
 
