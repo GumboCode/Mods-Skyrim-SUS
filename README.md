@@ -1,6 +1,6 @@
 # Simple Unlock Spell
 
-<img src="https://staticdelivery.nexusmods.com/mods/1704/images/151386/151386-1748586076-1610554653.jpeg" width="600">
+[![VIDEO PREVIEW](https://staticdelivery.nexusmods.com/mods/1704/images/151386/151386-1748586076-1610554653.jpeg)](https://www.youtube.com/watch?v=IRGuQIPcQyA)
 
 Mod Page: https://www.nexusmods.com/skyrimspecialedition/mods/151386
 
