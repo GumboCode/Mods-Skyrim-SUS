@@ -8,7 +8,7 @@ This mod has no dependencies.
 
 ## About 📖
 
-This mod adds a spell to the game that lets you unlock doors and chests from a distance, as long as it doesn’t require a key. It's extremely light weight, only runs scripts each time it's cast, and uninstalling it is easy. It’s very close to Oblivion’s unlock spells, but with some additional quality of life features. Just like in Oblivion, using it in front of guards won't get you into trouble. The spell was designed with game balance in mind, if you don’t like my default settings, I have given you 3 global variables so you can tweak it to your satisfaction.
+This mod adds a spell to the game that lets you unlock doors and chests from a distance, as long as it doesn’t require a key. It's extremely light weight, only runs scripts each time it's cast, and uninstalling it is easy. It’s very close to Oblivion’s unlock spells, but with some additional quality of life features. Just like in Oblivion, using it in front of guards won't get you into trouble. The spell was designed with game balance in mind, if you don’t like my default settings, I have given you 5 global variables so you can tweak it to your satisfaction.
 
 You can obtain the spell by buying it from Belethor's General Goods, Bits and Pieces, Gray Pine Goods, Riverwood Trader, and The Pawned Prawn.
 
@@ -25,7 +25,7 @@ There is only one Unlock spell to learn, and it doesn’t matter what your alter
 - It will work at any skill level, provided you have enough magicka.
 - You won’t get in trouble for unlocking things with the spell.
 - You can use the game mechanics to reduce the cost of opening locks.
-- Configure the spell through 3 different global variables.
+- Configure the spell through 5 different global variables.
 <img src="https://staticdelivery.nexusmods.com/mods/1704/images/151386/151386-1748715655-855762942.jpeg" width="600">
 
 <ins>Details:</ins>
