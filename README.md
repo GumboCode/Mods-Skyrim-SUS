@@ -30,11 +30,9 @@ There is only one Unlock spell to learn, and it doesn’t matter what your alter
 
 <ins>Details:</ins>
 
-- The default base magicka costs for each lock level goes 80, 160, 240, 320, 400. You can adjust the maximum cost with the GM_SUS_Unlock_Magicka_Glob1 global variable, and the value will be divided for all 5 levels.
-> Magicka = Global / 5, Novice = Magicka, Apprentice = Magicka x 2, Adept = Magicka x 3, … etc.
-
-- The default skill increases for successfully opening each lock level goes 20, 40, 60, 80, 100. You can adjust the maximum skill advancement with the GM_SUS_Unlock_Skill_Glob1 global variable, and the value will be divided for all 5 levels.
-> Skill = Global / 5, Novice = Skill, Apprentice = Skill x 2, Adept = Skill x 3, … etc.
+- The default base magicka cost range is 40 for novice, and 200 for master. You can adjust the cost range by setting 2 global variables, GM_SUS_Unlock_MagickaMax_Glob1, and GM_SUS_Unlock_MagickaMin_Glob1.
+- The default skill increase range is at least 50 for novice locks, and 100 for master locks. You can adjust the skill increase range by setting 2 global variables, GM_SUS_Unlock_SkillMax_Glob1, and GM_SUS_Unlock_SkillMin_Glob1.
+> Lock level 0 to 4 x ( ( max global - min global ) / 4 ) + min global
 
 - The formula used to calculate magicka cost is:
 > Base Cost x ( 1 - ( Alteration Mod / 100 ) ) x ( 1 - ( Alteration Skill / 400 )^0.65 )
