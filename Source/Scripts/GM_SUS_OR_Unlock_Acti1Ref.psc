@@ -15,9 +15,12 @@ EffectShader            Property        _EFFECT1            Auto
 
 GlobalVariable          Property        _MAGICKAMAX         Auto
 {The global that sets the maximum base cost of the spell.}
-
+GlobalVariable          Property        _MAGICKAMIN         Auto
+{The global that sets the minimum base cost of the spell.}
 GlobalVariable          Property        _SKILLMAX           Auto
 {The global that sets the maximum skill increase of the spell.}
+GlobalVariable          Property        _SKILLMIN           Auto
+{The global that sets the minimum skill increase of the spell.}
 
 Perk[]                  Property        _PERK_ARRAY         Auto
 {Check if the player has the alteration cost reduction perk.}
@@ -56,29 +59,26 @@ EndEvent
 ; =============================================================
 
 Function CheckLockLvl(int a_value) ;checks the lock level of the object and executes the UnlockTarget function with the appropriate parameters
-    
-    int _mag_i =    ( _MAGICKAMAX.GetValue() as int / 5 )
-    int _skill_i =  ( _SKILLMAX.GetValue() as int / 5 )
 
     If (a_value < 2)            ;Novice
         
-        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[0]) , _mag_i , _skill_i)
+        UnlockTarget( _PLAYERREF.HasPerk(_PERK_ARRAY[0]) , Range(0, 1) , Range(0, 0) )
     
     ElseIf (a_value < 26)       ;Apprentice
         
-        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[1]) , ( _mag_i * 2 ) , ( _skill_i * 2 ))
+        UnlockTarget( _PLAYERREF.HasPerk(_PERK_ARRAY[1]) , Range(1, 1) , Range(1, 0) )
 
     ElseIf (a_value < 51)       ;Adept
         
-        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[2]) , ( _mag_i * 3 ) , ( _skill_i * 3 ))
+        UnlockTarget( _PLAYERREF.HasPerk(_PERK_ARRAY[2]) , Range(2, 1) , Range(2, 0) )
 
     ElseIf (a_value < 76)       ;Expert
         
-        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[3]) , ( _mag_i * 4 ) , ( _skill_i * 4 ))
+        UnlockTarget( _PLAYERREF.HasPerk(_PERK_ARRAY[3]) , Range(3, 1) , Range(3, 0) )
 
     ElseIf (a_value < 255)      ;Master
         
-        UnlockTarget(_PLAYERREF.HasPerk(_PERK_ARRAY[4]) , ( _mag_i * 5 ) , ( _skill_i * 5 ))
+        UnlockTarget( _PLAYERREF.HasPerk(_PERK_ARRAY[4]) , Range(4, 1) , Range(4, 0) )
 
     Else                        ;Key
         
@@ -90,7 +90,30 @@ EndFunction
 
 
 
-Function UnlockTarget(bool a_bool = false, float a_mag = 0.0, float a_skill = 0.0) ;performs the unlock procedure on the LockedTarget object
+float Function Range(int a_int, int a_switch) ;returns the min value, max value, or any divisor values between
+
+    float _max
+    float _min
+
+    If (a_switch) ;1 for magicka, 0 for skill
+
+        _max = _MAGICKAMAX.GetValue()
+        _min = _MAGICKAMIN.GetValue()
+
+    Else
+
+        _max = _SKILLMAX.GetValue()
+        _min = _SKILLMIN.GetValue()
+
+    EndIf
+    
+    return ( a_int * ( ( _max - _min ) / 4) ) + _min ;an a_int of 0 will return _min, in other words (_max - _min) / the total number of entries - 1
+
+EndFunction
+
+
+
+Function UnlockTarget(bool a_bool, float a_mag, float a_skill) ;performs the unlock procedure on the LockedTarget object
     
     float _mod_f =      _PLAYERREF.GetActorValue("AlterationMod")
     float _skill_f =    _PLAYERREF.GetActorValue("Alteration")
@@ -120,6 +143,7 @@ Function UnlockTarget(bool a_bool = false, float a_mag = 0.0, float a_skill = 0.
     Else
         
         ;Debug.Trace("magicka cost = " + a_mag)
+        ;Debug.Trace("skill increase = " + a_skill)
         _PLAYERREF.DamageActorValue("Magicka", a_mag)
         _locked_or.Lock(false)
         _SOUND1.Play(_locked_or)

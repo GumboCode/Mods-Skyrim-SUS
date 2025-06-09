@@ -16,9 +16,8 @@
         <Variable Name="ModsFolder" Value="C:\[YOUR MODS FOLDER]" />
     </Variables>
     <Imports>
-        <!-- <Import>@ModsFolder\SKSE64\Scripts\Source</Import> -->
+        <Import>C:\Users\Gumbo Slice\AppData\Local\ModOrganizer\Skyrim Special Edition\mods\Skyrim\Source\Scripts</Import>
         <Import>C:\Program Files (x86)\Steam\steamapps\common\Skyrim Special Edition\Data\Source\Scripts</Import>
-        <Import>C:\Program Files (x86)\Steam\steamapps\common\Skyrim Special Edition\Data\Scripts\Source</Import>
     </Imports>
     <Folders>
         <!-- Relative path to folder containing .psc Papyrus source code files for this project -->
