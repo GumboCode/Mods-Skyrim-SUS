@@ -40,7 +40,7 @@ There is only one Unlock spell to learn, and it doesn’t matter what your alter
 - If you have an alteration perk that halves the spell cost, and you cast it on a lock that matches that perk's level, it halves the result:
 > Magicka Cost / 2
 
-- You can adjust the spell’s lock detection radius with the GM_SUS_Unlock_Radius_Glob1 global variable, the default value is 150.
+- You can adjust the spell’s lock detection radius with the GM_SUS_Unlock_Radius_Glob1 global variable, the default value is 200.
 
 Alteration Mod is the total value of all your Alteration spell cost reducing enchantments, and once that hits 100, the magicka cost is simply 0.
 
